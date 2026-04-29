@@ -72,7 +72,7 @@
 
 // --------------------------------------------------
 // Landscape Mode (Mobile)
-// 用户逆时针旋转手机，内容需顺时针旋转90度
+// 用户逆时针旋转手机，body 整体顺时针旋转90度补偿
 // --------------------------------------------------
 
 body.landscape-mode
@@ -83,22 +83,23 @@ body.landscape-mode
   height 100vh
   overflow hidden
   background $gray-dark
-  
+  transform rotate(90deg)
+  transform-origin left top
+
   // 隐藏正文内容
   .main, .content
     display none
-  
-  // 钢琴容器 - 顺时针旋转90度，补偿用户逆时针转手机
+
+  // 钢琴容器 - 不旋转，保持正常显示
   .header
-    position fixed
+    position absolute
     top 50%
     left 50%
-    transform translate(-50%, -50%) rotate(90deg)
-    transform-origin center center
+    transform translate(-50%, -50%)
     width 100vh
     height auto
-  
-  // 钢琴键盘 - 缩放适应屏幕
+
+  // 钢琴键盘 - 适应旋转后的视口
   .piano
     height calc(100vw - 2rem)
     max-height 100vh
@@ -106,20 +107,20 @@ body.landscape-mode
     max-width 100vw
     padding 0.5rem
     box-sizing border-box
-  
+
   // 音色选择器 - 保持用户左上角（不旋转）
   .sound-selector
+    position absolute
     top 10px
     left 10px
-    right auto
-    bottom auto
-  
+    transform none
+
   // 横屏按钮 - 保持用户右上角（不旋转）
   .landscape-btn
+    position absolute
     top 10px
     right 10px
-    left auto
-    bottom auto
+    transform none
 
 
 
