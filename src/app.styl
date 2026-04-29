@@ -108,19 +108,25 @@ body.landscape-mode
     padding 0.5rem
     box-sizing border-box
 
-  // 音色选择器 - 保持用户左上角（不旋转）
+  // 音色选择器 - 反向旋转抵消 body 的旋转
   .sound-selector
-    position absolute
+    position fixed
     top 10px
     left 10px
-    transform none
+    right auto
+    bottom auto
+    transform rotate(-90deg)
+    transform-origin left top
 
-  // 横屏按钮 - 保持用户右上角（不旋转）
+  // 横屏按钮 - 反向旋转抵消 body 的旋转
   .landscape-btn
-    position absolute
+    position fixed
     top 10px
     right 10px
-    transform none
+    left auto
+    bottom auto
+    transform rotate(-90deg)
+    transform-origin right top
 
 
 
