@@ -12,9 +12,39 @@
     body {
       visibility: hidden;
     }
+    /* 隐藏滚动条 */
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    * {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    /* 确保简谱层不溢出 */
+    .sheet-music {
+      overflow: hidden !important;
+    }
+    .sheet-music-track {
+      overflow: hidden !important;
+    }
   </style>
 </head>
 <body>
+  <script>
+    // 强制隐藏滚动条
+    document.addEventListener('DOMContentLoaded', function() {
+      var scrollElements = document.querySelectorAll('.sheet-music, .sheet-music-track, .sheet-music-content');
+      scrollElements.forEach(function(el) {
+        el.style.overflow = 'hidden';
+        el.style.scrollbarWidth = 'none';
+        el.style.msOverflowStyle = 'none';
+      });
+      // 隐藏所有元素的垂直滚动条
+      document.body.style.overflowY = 'hidden';
+    });
+  </script>
   
   <!-- 音色选择器 -->
   <div class="sound-selector">
@@ -44,6 +74,13 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H2V3h5v1.5h13V3H21v18h-5v-1.5H7.5z"/></svg>
         <span class="btn-text">横屏</span>
       </button>
+    </div>
+    
+    <!-- 简谱展示层 -->
+    <div class="sheet-music">
+      <div class="sheet-music-track">
+        <div class="sheet-music-content"></div>
+      </div>
     </div>
     
     <div class="piano">

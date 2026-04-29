@@ -224,6 +224,29 @@ function initLandscapeButton() {
   });
 }
 
+/**
+ * 根据音符行数动态计算滚动时间
+ * 每行滚动时间可配置
+ */
+function initScrollAnimation() {
+  const content = document.querySelector('.sheet-music-content');
+  if (!content) return;
+  
+  const rows = content.querySelectorAll('.note-row');
+  const originalRowCount = rows.length;
+  
+  // 复制内容实现无限循环
+  const rowsCopy = content.innerHTML;
+  content.innerHTML = rowsCopy + rowsCopy;
+  
+  // 每行滚动时间（秒），可修改
+  const rowDuration = 4;
+  const duration = originalRowCount * rowDuration;
+  
+  // 设置动画持续时间
+  content.style.animationDuration = `${duration}s`;
+}
+
 export const piano = () => {
   // 启动音频上下文 (用户交互后才能启动)
   document.addEventListener('click', () => {
@@ -234,4 +257,5 @@ export const piano = () => {
   addTapEvents();
   initSoundSelector();
   initLandscapeButton();
+  initScrollAnimation();
 };
