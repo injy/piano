@@ -65,9 +65,6 @@ synth.volume.value = -6;
 function switchSound(soundKey) {
   if (soundKey === currentSound) return;
   
-  // 获取当前正在播放的音符
-  const activeNotes = synth.activeVoices.map(v => v.note);
-  
   // 释放当前音符
   synth.releaseAll();
   
@@ -78,11 +75,6 @@ function switchSound(soundKey) {
   currentSound = soundKey;
   synth = new Tone.PolySynth(Tone.Synth, SOUND_PRESETS[soundKey]).toDestination();
   synth.volume.value = -6;
-  
-  // 重新触发正在播放的音符
-  if (activeNotes.length > 0) {
-    synth.triggerAttack(activeNotes);
-  }
   
   // 更新 UI
   document.querySelectorAll('.sound-selector button').forEach(btn => {
