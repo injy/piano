@@ -84,11 +84,15 @@
 // 横屏模式下铺满整个屏幕
 body.landscape-mode #piano-container
   position fixed
-  top 0
-  left 0
-  width 100vw
-  height 100vh
+  top 50%
+  left 50%
+  width 100vh
+  height 100vw
+  margin-top -50vw  // 旋转后高度是 vw，所以用 vw 做偏移
+  margin-left -50vh  // 旋转后宽度是 vh，所以用 vh 做偏移
   z-index 1000
+  transform rotate(90deg)
+  transform-origin center center
 
 // 横屏模式下隐藏正文，但保留按钮
 body.landscape-mode .main
