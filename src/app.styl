@@ -71,62 +71,30 @@
     display none
 
 // --------------------------------------------------
-// Landscape Mode (Mobile)
-// 用户逆时针旋转手机，body 整体顺时针旋转90度补偿
+// Landscape Mode (横屏模式) - 类似视频全屏
+// 钢琴容器直接铺满屏幕，不需要克隆
 // --------------------------------------------------
 
-body.landscape-mode
+#piano-container
+  // 默认在页面顶部显示
+  width 100%
+  background $gray-dark
+  box-shadow 0 -2px 10px rgba(0, 0, 0, 0.1)
+
+// 横屏模式下铺满整个屏幕
+body.landscape-mode #piano-container
   position fixed
   top 0
   left 0
   width 100vw
   height 100vh
-  overflow hidden
-  background $gray-dark
-  transform rotate(90deg)
-  transform-origin left top
+  z-index 1000
 
-  // 隐藏正文内容
-  .main, .content
-    display none
-
-  // 钢琴容器 - 不旋转，保持正常显示
-  .header
-    position absolute
-    top 50%
-    left 50%
-    transform translate(-50%, -50%)
-    width 100vh
-    height auto
-
-  // 钢琴键盘 - 适应旋转后的视口
-  .piano
-    height calc(100vw - 2rem)
-    max-height 100vh
-    width calc(100vh - 2rem)
-    max-width 100vw
-    padding 0.5rem
-    box-sizing border-box
-
-  // 音色选择器 - 反向旋转抵消 body 的旋转
-  .sound-selector
-    position fixed
-    top 10px
-    left 10px
-    right auto
-    bottom auto
-    transform rotate(-90deg)
-    transform-origin left top
-
-  // 横屏按钮 - 反向旋转抵消 body 的旋转
-  .landscape-btn
-    position fixed
-    top 10px
-    right 10px
-    left auto
-    bottom auto
-    transform rotate(-90deg)
-    transform-origin right top
+// 横屏模式下隐藏正文
+body.landscape-mode .main,
+body.landscape-mode .sound-selector,
+body.landscape-mode .landscape-btn
+  display none
 
 
 

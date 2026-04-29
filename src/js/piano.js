@@ -86,29 +86,44 @@ function switchSound(soundKey) {
 }
 
 /**
- * 横屏切换
+ * 横屏切换 - 类似视频全屏
+ * 直接切换 body 的 landscape-mode 类，不需要克隆 DOM
  */
 function toggleLandscape() {
   const isLandscape = document.body.classList.toggle('landscape-mode');
+  const btnText = document.querySelector('.landscape-btn .btn-text');
+  const container = document.getElementById('piano-container');
+  
+  if (btnText) {
+    btnText.textContent = isLandscape ? '退出横屏' : '横屏';
+  }
   
   if (isLandscape) {
-    // 尝试使用全屏 API
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    }
-    
-    // Android 尝试锁定方向
-    if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock('landscape').catch(() => {});
-    }
+    // 使用全屏 API（可选增强）
+    tryFullscreen(container);
   } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen().catch(() => {});
-    }
-    
-    if (screen.orientation && screen.orientation.unlock) {
-      screen.orientation.unlock();
-    }
+    // 退出全屏
+    exitFullscreen();
+  }
+}
+
+/**
+ * 尝试进入全屏
+ */
+function tryFullscreen(element) {
+  if (element?.requestFullscreen) {
+    element.requestFullscreen().catch(() => {});
+  } else if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+}
+
+/**
+ * 退出全屏
+ */
+function exitFullscreen() {
+  if (document.fullscreenElement && document.exitFullscreen) {
+    document.exitFullscreen().catch(() => {});
   }
 }
 
@@ -207,10 +222,12 @@ function initLandscapeButton() {
   const btn = document.querySelector('.landscape-btn');
   if (!btn) return;
   
-  // 只在移动设备显示
+  // 始终绑定点击事件
+  btn.addEventListener('click', toggleLandscape);
+  
+  // 只在移动设备显示按钮
   if (isMobile()) {
     btn.style.display = 'flex';
-    btn.addEventListener('click', toggleLandscape);
   }
 }
 
