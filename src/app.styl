@@ -81,18 +81,16 @@
   background $gray-dark
   box-shadow 0 -2px 10px rgba(0, 0, 0, 0.1)
 
-// 横屏模式下铺满整个屏幕
+// 横屏模式下铺满整个屏幕，使用 vw/vh
 body.landscape-mode #piano-container
   position fixed
-  top 50%
-  left 50%
+  top calc(50vh - 50vw)
+  left calc(50vw - 50vh)
   width 100vh
   height 100vw
-  margin-top -50vw  // 旋转后高度是 vw，所以用 vw 做偏移
-  margin-left -50vh  // 旋转后宽度是 vh，所以用 vh 做偏移
   z-index 1000
   transform rotate(90deg)
-  transform-origin center center
+  transform-origin 50% 50%
 
 // 横屏模式下隐藏正文
 body.landscape-mode .main
