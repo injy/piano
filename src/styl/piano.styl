@@ -1,10 +1,10 @@
 // ==================================================
-// Piano 
+// Piano
 // ==================================================
 
-// @stylint off 
-.piano    
-  background linear-gradient(-65deg, #000, #222, #000, #666, #222 75%) 
+// @stylint off
+.piano
+  background linear-gradient(-65deg, #000, #222, #000, #666, #222 75%)
   border-top $space-xs $gray-darker solid
   box-shadow inset 0 -1px 1px rgba($white, .5), inset 0 -($space-xxs) $space-xxs $gray-darker
   display flex
@@ -13,17 +13,17 @@
   overflow hidden
   padding-bottom 5%
   padding-left 2.5%
-  padding-right 2.5% 
+  padding-right 2.5%
 
   @media screen and (min-height: 440px)
-    height $piano-height 
+    height $piano-height
 
-  &-key 
-    flex 1 
+  &-key
+    flex 1
     margin 0 ($space-xxs / 4)
     max-width $space-xxlg
     position relative
-  
+
     // Hidden keys on extra small screens
     @media screen and (max-width: 379px)
       &:nth-child(1),
@@ -33,24 +33,24 @@
       &:nth-child(12),
       &:nth-child(13),
       &:nth-child(14)
-        display none 
-     
-    &__white  
+        display none
+
+    &__white
       background linear-gradient(-30deg, #f8f8f8, #fff)
-      box-shadow inset 0 1px 0px rgba(255,255,255, 1),inset 0 -1px 0px rgba(255,255,255, 1),inset 1px 0px 0px rgba(255,255,255, 1),inset -1px 0px 0px rgba(255,255,255, 1),0 4px 3px rgba(0,0,0,.7),inset 0 -1px 0px rgba(255,255,255, 1),inset 1px 0px 0px rgba(255,255,255, 1),inset -1px -1px 15px rgba(0,0,0, .5), -3px 4px 6px rgba(0,0,0, .5) 
-      height 100% 
+      box-shadow inset 0 1px 0px rgba(255,255,255, 1),inset 0 -1px 0px rgba(255,255,255, 1),inset 1px 0px 0px rgba(255,255,255, 1),inset -1px 0px 0px rgba(255,255,255, 1),0 4px 3px rgba(0,0,0,.7),inset 0 -1px 0px rgba(255,255,255, 1),inset 1px 0px 0px rgba(255,255,255, 1),inset -1px -1px 15px rgba(0,0,0, .5), -3px 4px 6px rgba(0,0,0, .5)
+      height 100%
       position relative
-      
+
       &:active,
-      &.active 
+      &.active
         box-shadow inset 0 1px 0px rgba(255,255,255, 1),inset 0 -1px 0px rgba(255,255,255, 1),inset 1px 0px 0px rgba(255,255,255, 1),inset -1px 0px 0px rgba(255,255,255, 1),0 4px 3px rgba(0,0,0,.7),inset 0 -1px 0px rgba(255,255,255, 1),inset 1px 0px 0px rgba(255,255,255, 1),inset -1px -1px 15px rgba(0,0,0, 1), -3px 4px 6px rgba(0,0,0, .5)
         height 'calc(%s)' % (100% - $space-xxs)
         position relative
-        top -($space-xxs) 
-    
-    &__black   
+        top -($space-xxs)
+
+    &__black
       background linear-gradient(-20deg,#222,#000,#222)
-      box-shadow inset 0px -1px 2px rgba(255,255,255,.4),0 2px 3px rgba(0,0,0,.4) 
+      box-shadow inset 0px -1px 2px rgba(255,255,255,.4),0 2px 3px rgba(0,0,0,.4)
       border-width ($space-xxs / 2) $space-xxs ($space-xs + $space-xxs)
       border-style solid
       border-color #666 #222 #111 #555
@@ -58,11 +58,35 @@
       left 100%
       position absolute
       transform translateX(-50%)
-      top 0 
+      top 0
       width 70%
       z-index $zindex-piano
-      
+
       &:active,
       &.active
-        border-bottom-width $space-xxs   
+        border-bottom-width $space-xxs
+
+// 琴键音调标签
+.key-label
+  position absolute
+  bottom 0.5rem
+  left 50%
+  transform translateX(-50%)
+  font-size 0.7rem
+  color $gray-dark
+  pointer-events none
+  user-select none
+
+.piano-key__black .key-label
+  color $gray-lighter
+  bottom 0.3rem
+  font-size 0.6rem
+
+// 横屏模式下音调标签
+body.landscape-mode .key-label
+  font-size 1.2rem
+
+body.landscape-mode .piano-key__black .key-label
+  font-size 1rem
+
 // @stylint on
