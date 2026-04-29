@@ -28,21 +28,85 @@ const NOTE_FREQUENCIES = {
   '3B': 987.77    // B5
 };
 
-// 创建多声部合成器 (钢琴音色)
-const synth = new Tone.PolySynth(Tone.Synth, {
-  oscillator: {
-    type: 'triangle'
+// 音色配置
+const SOUND_PRESETS = {
+  pure: {
+    name: '纯静',
+    oscillator: { type: 'sine' },
+    envelope: { attack: 0.01, decay: 0.2, sustain: 0.3, release: 0.8 }
   },
-  envelope: {
-    attack: 0.005,
-    decay: 0.3,
-    sustain: 0.1,
-    release: 1.2
+  soft: {
+    name: '柔和',
+    oscillator: { type: 'triangle' },
+    envelope: { attack: 0.005, decay: 0.3, sustain: 0.2, release: 1.2 }
+  },
+  electric: {
+    name: '电子',
+    oscillator: { type: 'sawtooth' },
+    envelope: { attack: 0.001, decay: 0.1, sustain: 0.4, release: 0.3 }
+  },
+  orchestra: {
+    name: '管弦',
+    oscillator: { type: 'square' },
+    envelope: { attack: 0.02, decay: 0.5, sustain: 0.3, release: 1.5 }
   }
-}).toDestination();
+};
 
-// 设置音量
+// 当前音色
+let currentSound = 'soft';
+
+// 创建合成器
+let synth = new Tone.PolySynth(Tone.Synth, SOUND_PRESETS[currentSound]).toDestination();
 synth.volume.value = -6;
+
+/**
+ * 切换音色
+ */
+function switchSound(soundKey) {
+  if (soundKey === currentSound) return;
+  
+  // 获取当前正在播放的音符
+  const activeNotes = synth.activeVoices.map(v => v.note);
+  
+  // 释放当前音符
+  synth.releaseAll();
+  
+  // 销毁旧合成器
+  synth.dispose();
+  
+  // 创建新合成器
+  currentSound = soundKey;
+  synth = new Tone.PolySynth(Tone.Synth, SOUND_PRESETS[soundKey]).toDestination();
+  synth.volume.value = -6;
+  
+  // 重新触发正在播放的音符
+  if (activeNotes.length > 0) {
+    synth.triggerAttack(activeNotes);
+  }
+  
+  // 更新 UI
+  document.querySelectorAll('.sound-selector button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.sound === soundKey);
+  });
+  
+  // 存储选择
+  localStorage.setItem('piano-sound', soundKey);
+}
+
+/**
+ * 横屏切换
+ */
+function toggleLandscape() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  } else {
+    document.documentElement.requestFullscreen();
+    // 尝试强制横屏
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('landscape').catch(() => {});
+    }
+  }
+}
 
 /**
  * Source: https://github.com/Modernizr/Modernizr/blob/master/feature-detects/touchevents.js
@@ -57,6 +121,10 @@ function isTouchDevice() {
   }
   var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
   return mq(query);
+}
+
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 function addKeyboardEvents() {
@@ -113,6 +181,35 @@ function addTapEvents() {
   });
 }
 
+function initSoundSelector() {
+  const selector = document.querySelector('.sound-selector');
+  if (!selector) return;
+  
+  // 绑定点击事件
+  selector.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchSound(btn.dataset.sound);
+    });
+  });
+  
+  // 恢复保存的选择
+  const savedSound = localStorage.getItem('piano-sound');
+  if (savedSound && SOUND_PRESETS[savedSound]) {
+    switchSound(savedSound);
+  }
+}
+
+function initLandscapeButton() {
+  const btn = document.querySelector('.landscape-btn');
+  if (!btn) return;
+  
+  // 只在移动设备显示
+  if (isMobile()) {
+    btn.style.display = 'flex';
+    btn.addEventListener('click', toggleLandscape);
+  }
+}
+
 export const piano = () => {
   // 启动音频上下文 (用户交互后才能启动)
   document.addEventListener('click', () => {
@@ -121,4 +218,6 @@ export const piano = () => {
 
   addKeyboardEvents();
   addTapEvents();
+  initSoundSelector();
+  initLandscapeButton();
 };
