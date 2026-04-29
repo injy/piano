@@ -40,8 +40,6 @@
     "html-webpack-plugin": "^5.6.0",
     "postcss": "^8.4.40",
     "postcss-loader": "^8.1.1",
-    "pug": "^3.0.3",
-    "pug-loader": "^2.4.0",
     "style-loader": "^4.0.0",
     "stylus": "^0.63.0",
     "stylus-loader": "^7.1.0",

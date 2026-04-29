@@ -40,13 +40,7 @@ const baseWebpack = {
   },
   module: {
     rules: [
-      {
-        test: /\.pug/,
-        loader: 'pug-loader',
-        options: {
-          pretty: true
-        }
-      },
+
       {
         test: /\.styl/,
         use: [
@@ -91,7 +85,7 @@ const baseWebpack = {
     }),
     new HtmlWebpackPlugin({
       hash: true,
-      template: './src/index.pug'
+      template: './src/index.html'
     }),
     new CopyWebpackPlugin({ patterns: copyFiles })
   ]
