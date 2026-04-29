@@ -4,53 +4,28 @@
   "title": "Piano",
   "description": "To play piano using CSS and JavaScript",
   "homepage": "https://piano.felipefialho.com",
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ],
+  "type": "module",
   "author": {
     "name": "Felipe Fialho",
     "email": "hi@felipefialho.com",
     "url": "http://www.felipefialho.com"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve",
-    "build": "cross-env NODE_ENV=production webpack",
-    "analyzer": "npm run build && webpack-bundle-analyzer ./dist/stats.json",
-    "lint": "npm run lint:js",
-    "lint:js": "eslint ./src/",
-    "fix:js": "eslint ./src/ --fix"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/"
   },
   "dependencies": {
     "howler": "^2.2.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@eslint/js": "^10.0.1",
-    "ajv": "^8.20.0",
     "autoprefixer": "^10.4.20",
-    "babel-loader": "^9.2.1",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^14.0.0",
-    "cross-env": "^10.1.0",
-    "css-loader": "^7.1.2",
     "cssnano": "^7.0.0",
     "eslint": "^9.0.0",
-    "html-webpack-plugin": "^5.6.0",
     "postcss": "^8.4.40",
-    "postcss-loader": "^8.1.1",
-    "style-loader": "^4.0.0",
     "stylus": "^0.63.0",
-    "stylus-loader": "^7.1.0",
-    "webpack": "^5.94.0",
-    "webpack-bundle-analyzer": "^4.10.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^1.16.5",
-    "webpack-pwa-manifest": "^4.3.0",
-    "workbox-webpack-plugin": "^7.0.0"
-  },
-  "overrides": {
-    "semver": "^7.5.4"
+    "vite": "^5.4.0",
+    "vite-plugin-pwa": "^0.21.0"
   }
 }
