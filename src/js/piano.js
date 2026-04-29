@@ -90,11 +90,8 @@ function switchSound(soundKey) {
  */
 function toggleLandscape() {
   const isLandscape = document.body.classList.toggle('landscape-mode');
-  const btn = document.querySelector('.landscape-btn');
   
   if (isLandscape) {
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H2V3h5v1.5h13V3H21v18h-5v-1.5H7.5z"/></svg>竖屏';
-    
     // 尝试使用全屏 API
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen().catch(() => {});
@@ -105,8 +102,6 @@ function toggleLandscape() {
       screen.orientation.lock('landscape').catch(() => {});
     }
   } else {
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H2V3h5v1.5h13V3H21v18h-5v-1.5H7.5z"/></svg>横屏';
-    
     if (document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
     }
