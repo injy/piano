@@ -70,4 +70,45 @@
   @media (min-width: $screen-sm)
     display none !important
 
+// --------------------------------------------------
+// Landscape Mode (Mobile)
+// --------------------------------------------------
+
+body.landscape-mode
+  position fixed
+  top 0
+  left 0
+  width 100vw
+  height 100vh
+  overflow hidden
+  background $gray-dark
+  
+  // 旋转内容
+  .header, .main
+    transform rotate(90deg)
+    transform-origin center center
+    width 100vh
+    height 100vw
+    overflow hidden
+  
+  // 隐藏 UI 元素
+  .main, .content
+    display none
+  
+  .sound-selector
+    top auto
+    left auto
+    bottom 10px
+    right 10px
+    transform rotate(-90deg)
+  
+  .landscape-btn
+    top auto
+    left 10px
+    bottom 10px
+    right auto
+    transform rotate(-90deg)
+    transform-origin center center
+
+
 
