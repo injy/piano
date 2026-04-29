@@ -91,12 +91,12 @@ function switchSound(soundKey) {
  */
 function toggleLandscape() {
   const isLandscape = document.body.classList.toggle('landscape-mode');
-  const btnText = document.querySelector('.landscape-btn .btn-text');
   const container = document.getElementById('piano-container');
   
-  if (btnText) {
+  // 更新所有横屏按钮的文字
+  document.querySelectorAll('.landscape-btn .btn-text').forEach(btnText => {
     btnText.textContent = isLandscape ? '退出横屏' : '横屏';
-  }
+  });
   
   if (isLandscape) {
     // 使用全屏 API（可选增强）
@@ -201,13 +201,12 @@ function addTapEvents() {
 }
 
 function initSoundSelector() {
-  const selector = document.querySelector('.sound-selector');
-  if (!selector) return;
-  
-  // 绑定点击事件
-  selector.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      switchSound(btn.dataset.sound);
+  // 绑定所有音色选择器（包括页面上的和横屏容器内的）
+  document.querySelectorAll('.sound-selector').forEach(selector => {
+    selector.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchSound(btn.dataset.sound);
+      });
     });
   });
   
@@ -219,15 +218,16 @@ function initSoundSelector() {
 }
 
 function initLandscapeButton() {
-  const btn = document.querySelector('.landscape-btn');
-  if (!btn) return;
+  // 绑定所有横屏按钮（包括页面上的和横屏容器内的）
+  document.querySelectorAll('.landscape-btn').forEach(btn => {
+    btn.addEventListener('click', toggleLandscape);
+  });
   
-  // 始终绑定点击事件
-  btn.addEventListener('click', toggleLandscape);
-  
-  // 只在移动设备显示按钮
+  // 只在移动设备显示页面上的按钮
   if (isMobile()) {
-    btn.style.display = 'flex';
+    document.querySelectorAll('.header ~ .sound-selector, .header ~ .landscape-btn').forEach(btn => {
+      btn.style.display = 'flex';
+    });
   }
 }
 

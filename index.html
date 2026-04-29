@@ -32,6 +32,20 @@
   
   <!-- 钢琴容器 - 直接在 body 中，类似视频元素 -->
   <div id="piano-container">
+    <!-- 横屏模式下的按钮 -->
+    <div class="landscape-controls">
+      <div class="sound-selector in-landscape">
+        <button class="active" data-sound="pure">纯静</button>
+        <button data-sound="soft">柔和</button>
+        <button data-sound="electric">电子</button>
+        <button data-sound="orchestra">管弦</button>
+      </div>
+      <button class="landscape-btn in-landscape">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H2V3h5v1.5h13V3H21v18h-5v-1.5H7.5z"/></svg>
+        <span class="btn-text">横屏</span>
+      </button>
+    </div>
+    
     <div class="piano">
       <div class="piano-key">
         <div class="piano-key__white" data-key="20" data-note="1C"></div>

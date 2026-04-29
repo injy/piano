@@ -94,18 +94,37 @@ body.landscape-mode #piano-container
   transform rotate(90deg)
   transform-origin center center
 
-// 横屏模式下隐藏正文，但保留按钮
+// 横屏模式下隐藏正文
 body.landscape-mode .main
   display none
 
-// 横屏模式下按钮样式调整
-body.landscape-mode .sound-selector
-  z-index 1001
-  background rgba(255, 255, 255, 0.9)
+// 横屏模式下隐藏页面上的按钮（只在横屏容器内显示按钮）
+body.landscape-mode .sound-selector:not(.in-landscape),
+body.landscape-mode .landscape-btn:not(.in-landscape)
+  display none !important
 
-body.landscape-mode .landscape-btn
-  z-index 1001
-  background rgba(255, 255, 255, 0.9)
+// 横屏模式下的控制按钮（位于钢琴容器内）
+body.landscape-mode .landscape-controls
+  position absolute
+  top 1rem
+  left 0
+  right 0
+  display flex
+  justify-content space-between
+  padding 0 1rem
+  z-index 100
+
+body.landscape-mode .landscape-controls .sound-selector
+  position static
+  display flex
+
+body.landscape-mode .landscape-controls .landscape-btn
+  position static
+  display flex
+
+body.landscape-mode .landscape-controls button
+  padding 0.6rem 1rem
+  font-size 0.9rem
 
 
 
