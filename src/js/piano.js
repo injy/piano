@@ -218,17 +218,10 @@ function initSoundSelector() {
 }
 
 function initLandscapeButton() {
-  // 绑定所有横屏按钮（包括页面上的和横屏容器内的）
+  // 绑定所有横屏按钮
   document.querySelectorAll('.landscape-btn').forEach(btn => {
     btn.addEventListener('click', toggleLandscape);
   });
-  
-  // 只在移动设备显示页面上的按钮
-  if (isMobile()) {
-    document.querySelectorAll('.header ~ .sound-selector, .header ~ .landscape-btn').forEach(btn => {
-      btn.style.display = 'flex';
-    });
-  }
 }
 
 export const piano = () => {
