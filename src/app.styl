@@ -90,11 +90,18 @@ body.landscape-mode #piano-container
   height 100vh
   z-index 1000
 
-// 横屏模式下隐藏正文
-body.landscape-mode .main,
-body.landscape-mode .sound-selector,
-body.landscape-mode .landscape-btn
+// 横屏模式下隐藏正文，但保留按钮
+body.landscape-mode .main
   display none
+
+// 横屏模式下按钮样式调整
+body.landscape-mode .sound-selector
+  z-index 1001
+  background rgba(255, 255, 255, 0.9)
+
+body.landscape-mode .landscape-btn
+  z-index 1001
+  background rgba(255, 255, 255, 0.9)
 
 
 
