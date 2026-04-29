@@ -1,8 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const rupture = require('rupture');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const { GenerateSW } = require('workbox-webpack-plugin');
@@ -32,7 +30,7 @@ const copyFiles = [
 ];
 
 const baseWebpack = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: (process.env.NODE_ENV || 'development').trim(),
   entry: {
     app: './src/app.js'
   },
@@ -45,6 +43,9 @@ const baseWebpack = {
       {
         test: /\.pug/,
         loader: 'pug-loader',
+        options: {
+          pretty: true
+        }
       },
       {
         test: /\.styl/,
@@ -59,20 +60,11 @@ const baseWebpack = {
             loader: 'stylus-loader',
             options: {
               stylusOptions: {
-                use: [rupture()],
-              },
-            },
+                paths: [path.resolve('./src')]
+              }
+            }
           }
         ]
-      },
-      {
-        test: /\.json$/,
-        type: 'javascript/auto',
-        loader: 'json-loader'
-      },
-      {
-        test: /\.(jpe?g|gif|png|svg)$/,
-        use: 'file-loader'
       },
       {
         test: /\.js$/,
@@ -83,6 +75,10 @@ const baseWebpack = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.(jpe?g|gif|png|svg|webp|ico|mp3)$/,
+        type: 'asset/resource'
       }
     ]
   },
@@ -101,26 +97,11 @@ const baseWebpack = {
   ]
 };
 
-const sw = {
-  safeToUseOptionalCaches: true,
-  caches: {
-    main: ['index.html'],
-    additional: ['*.js?*', 'medias/*.mp3']
-  },
-  navigateFallbackURL: '/',
-  autoUpdate: true,
-  responseStrategy: 'cache-first',
-  ServiceWorker: { events: true },
-  AppCache: { events: true }
-};
-
-if (process.env.NODE_ENV === 'production') {
-  baseWebpack.plugins.push(new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }));
+if ((process.env.NODE_ENV || '').trim() === 'production') {
   baseWebpack.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'disabled' }));
   baseWebpack.plugins.push(new WebpackPwaManifest(webapp));
   baseWebpack.plugins.push(
     new GenerateSW({
-      clientsClaim: true,
       skipWaiting: true,
       runtimeCaching: [
         {
@@ -136,7 +117,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
-if (process.env.NODE_ENV === 'development') {
+if ((process.env.NODE_ENV || '').trim() === 'development') {
   baseWebpack.devServer = {
     static: {
       directory: path.join(__dirname, 'dist'),

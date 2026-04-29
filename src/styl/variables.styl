@@ -58,17 +58,15 @@ $screen-lg   = 1200px // Large screen / wide desktop
 $screen-xlg  = 1400px // Extra Large screen / wide desktop
 $screen-xxlg = 1600px // Extra Large screen / wide desktop
 
-// Rupture Settings
-// @stylint off
-rupture.mobile-cutoff  = $screen-sm
-rupture.tablet-cutoff  = $screen-md
-rupture.desktop-cutoff = $screen-lg
-rupture.hd-cutoff      = $screen-xlg
-
-rupture.scale          = 0 $screen-xxs $screen-sm $screen-md $screen-lg $screen-xlg $screen-xxlg
-rupture.scale-names    = 'xxs' 'xs' 'sm' 'md' 'lg' 'xlg' 'hd'
-rupture.anti-overlap   = -1px
-// @stylint on
+// Rupture Settings (deprecated, using CSS media queries instead)
+// rupture.mobile-cutoff  = $screen-sm
+// rupture.tablet-cutoff  = $screen-md
+// rupture.desktop-cutoff = $screen-lg
+// rupture.hd-cutoff      = $screen-xlg
+//
+// rupture.scale          = 0 $screen-xxs $screen-sm $screen-md $screen-lg $screen-xlg $screen-xxlg
+// rupture.scale-names    = 'xxs' 'xs' 'sm' 'md' 'lg' 'xlg' 'hd'
+// rupture.anti-overlap   = -1px
 
 // --------------------------------------------------
 // 4. zIndex
