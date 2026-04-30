@@ -72,23 +72,44 @@
   bottom 0.5rem
   left 50%
   transform translateX(-50%)
-  font-size 0.9rem
+  font-size 3rem
   font-weight bold
   color $gray-dark
   pointer-events none
   user-select none
+  display flex
+  flex-direction column
+  align-items center
 
 .piano-key__black .key-label
   color $gray-lighter
   bottom 0.3rem
-  font-size 0.8rem
+  font-size 2.5rem
+
+// 高音点（在上方）
+.dot-top-label
+  font-size 2.2rem
+  line-height 1
+  margin-bottom -0.5rem
+
+// 低音点（在下方）
+.dot-bottom-label
+  font-size 2.2rem
+  line-height 1
+  margin-top -0.5rem
 
 // 横屏模式下音调标签
 body.landscape-mode .key-label
-  font-size 1.2rem
+  font-size 4.5rem
 
 body.landscape-mode .piano-key__black .key-label
-  font-size 1rem
+  font-size 3.5rem
+
+body.landscape-mode .dot-top-label
+  font-size 3rem
+
+body.landscape-mode .dot-bottom-label
+  font-size 3rem
 
 // ==================================================
 // 简谱展示层 - 覆盖在键盘上方 1/3 区域
