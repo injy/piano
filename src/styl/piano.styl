@@ -205,4 +205,45 @@ body.landscape-mode .sheet-music-content .note
   height 60px
   font-size 2.2rem
 
+// ==================================================
+// 横屏手机模式 - 钢琴键盘缩放适配
+// ==================================================
+
+// 横屏且屏幕宽度较小（手机）时，钢琴占满屏幕并缩放
+@media screen and (orientation: landscape) and (max-height: 500px)
+  #piano-container
+    position fixed
+    top 0
+    left 0
+    width 100vw
+    height 100vh
+    z-index 1000
+    background #000
+
+  body.landscape-mode #piano-container
+    transform none
+
+  body.landscape-mode .piano
+    height 100vh
+    padding 0
+    justify-content center
+
+  body.landscape-mode .piano-key
+    flex 1
+    max-width none
+    margin 0 1px
+
+  // 保留横屏控制按钮
+
+  // 隐藏简谱层（手机横屏时不需要）
+  body.landscape-mode .sheet-music
+    display none
+
+  // 缩小音调标签
+  body.landscape-mode .key-label
+    font-size 2.5rem
+
+  body.landscape-mode .piano-key__black .key-label
+    font-size 2rem
+
 // @stylint on
